@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Битвы</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .blur-background {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 font-sans transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-blue-600 dark:bg-blue-800 text-white p-4 flex justify-center items-center">
+        <div class="flex space-x-8">
+            <button id="battleBtn" class="bg-green-600 dark:bg-green-700 hover:bg-green-500 dark:hover:bg-green-600 px-4 py-2 rounded text-white">Битвы</button>
+            <button id="settingsBtn" class="bg-green-600 dark:bg-green-700 hover:bg-green-500 dark:hover:bg-green-600 px-4 py-2 rounded text-white">Настройки</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-4">
+        <div id="welcomeContent">
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Добро пожаловать в мир великих битв!</h2>
+            <p class="text-gray-600 dark:text-gray-300">Исследуйте исторические сражения или настройте интерфейс под себя.</p>
+        </div>
+        <!-- Kulikovo Content -->
+        <div id="kulikovoContent" class="hidden mt-4 flex flex-col items-center space-y-4">
+            <img src="kulik1.jpg" alt="Куликовская битва" class="w-full max-w-5xl h-auto rounded">
+            <button id="infoBtn" class="bg-green-600 dark:bg-green-700 hover:bg-green-500 dark:hover:bg-green-600 text-white px-4 py-2 rounded">Информация</button>
+        </div>
+        <!-- Ugra Content -->
+        <div id="ugraContent" class="hidden mt-4 flex flex-col items-center space-y-4">
+            <img src="ugr.jpg" alt="Стояние на Угре" class="w-full max-w-5xl h-auto rounded">
+            <button id="ugraInfoBtn" class="bg-green-600 dark:bg-green-700 hover:bg-green-500 dark:hover:bg-green-600 text-white px-4 py-2 rounded">Информация</button>
+        </div>
+    </main>
+
+    <!-- Battle Modal -->
+    <div id="battleModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-md w-full">
+            <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Битвы</h2>
+            <p class="mb-4 text-gray-600 dark:text-gray-300">Выберите битву о которой вы хотите узнать</p>
+            <ul class="mb-4 space-y-2">
+                <li><a href="#" id="kulikovoLink" class="text-green-600 hover:underline dark:text-green-400">Куликовская битва</a></li>
+                <li><a href="#" id="ugraLink" class="text-green-600 hover:underline dark:text-green-400">Стояние на Угре</a></li>
+            </ul>
+            <button id="closeBattleModal" class="bg-green-600 dark:bg-green-700 hover:bg-green-500 dark:hover:bg-green-600 text-white px-4 py-2 rounded">Закрыть</button>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden blur-background">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-md w-full">
+            <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Настройки</h2>
+            <label class="flex items-center mb-4 text-gray-600 dark:text-gray-300">
+                <input id="themeToggle" type="checkbox" class="mr-2">
+                Темная тема
+            </label>
+            <button id="closeSettingsModal" class="bg-green-600 dark:bg-green-700 hover:bg-green-500 dark:hover:bg-green-600 text-white px-4 py-2 rounded">Закрыть</button>
+        </div>
+    </div>
+
+    <!-- Kulikovo Info Modal -->
+    <div id="kulikovoInfoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-lg w-full">
+            <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Куликовская битва</h2>
+            <p class="mb-4 text-gray-600 dark:text-gray-300">
+                Куликовская битва произошла 8 сентября 1380 года на Куликовом поле (ныне Тульская область, Россия) между войсками московского князя Дмитрия Ивановича (прозванного Донским) и армией темника Золотой Орды Мамая. Эта битва стала переломным моментом в борьбе русских земель против ордынского ига. Несмотря на тяжелые потери, русские войска одержали победу, что укрепило авторитет Москвы и заложило основу для дальнейшего объединения русских земель. Битва символизирует начало освобождения Руси от монголо-татарского владычества.
+            </p>
+            <button id="closeKulikovoInfoModal" class="bg-green-600 dark:bg-green-700 hover:bg-green-500 dark:hover:bg-green-600 text-white px-4 py-2 rounded">Закрыть</button>
+        </div>
+    </div>
+
+    <!-- Ugra Info Modal -->
+    <div id="ugraInfoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-lg w-full">
+            <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Стояние на Угре</h2>
+            <p class="mb-4 text-gray-600 dark:text-gray-300">
+                Стояние на Угре произошло в октябре-ноябре 1480 года на реке Угре (ныне Калужская область, Россия) между войсками великого князя московского Ивана III и армией хана Большой Орды Ахмата. Это событие считается окончанием монголо-татарского ига на Руси. Без прямого сражения, после нескольких недель противостояния, хан Ахмат отступил, не решившись на битву, из-за нехватки ресурсов и поддержки. Стояние на Угре закрепило независимость Московского княжества и стало важным шагом к созданию единого русского государства.
+            </p>
+            <button id="closeUgraInfoModal" class="bg-green-600 dark:bg-green-700 hover:bg-green-500 dark:hover:bg-green-600 text-white px-4 py-2 rounded">Закрыть</button>
+        </div>
+    </div>
+
+    <script>
+        // Battle Modal
+        const battleBtn = document.getElementById('battleBtn');
+        const battleModal = document.getElementById('battleModal');
+        const closeBattleModal = document.getElementById('closeBattleModal');
+
+        battleBtn.addEventListener('click', () => {
+            battleModal.classList.remove('hidden');
+        });
+
+        closeBattleModal.addEventListener('click', () => {
+            battleModal.classList.add('hidden');
+        });
+
+        // Settings Modal
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsModal = document.getElementById('settingsModal');
+        const closeSettingsModal = document.getElementById('closeSettingsModal');
+
+        settingsBtn.addEventListener('click', () => {
+            settingsModal.classList.remove('hidden');
+        });
+
+        closeSettingsModal.addEventListener('click', () => {
+            settingsModal.classList.add('hidden');
+        });
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        themeToggle.addEventListener('change', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            html.classList.add('dark');
+            themeToggle.checked = true;
+        }
+
+        // Welcome Content
+        const welcomeContent = document.getElementById('welcomeContent');
+
+        // Kulikovo Battle Link
+        const kulikovoLink = document.getElementById('kulikovoLink');
+        const kulikovoContent = document.getElementById('kulikovoContent');
+
+        kulikovoLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            kulikovoContent.classList.remove('hidden');
+            ugraContent.classList.add('hidden');
+            battleModal.classList.add('hidden');
+            welcomeContent.classList.add('hidden');
+        });
+
+        // Ugra Battle Link
+        const ugraLink = document.getElementById('ugraLink');
+        const ugraContent = document.getElementById('ugraContent');
+
+        ugraLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            ugraContent.classList.remove('hidden');
+            kulikovoContent.classList.add('hidden');
+            battleModal.classList.add('hidden');
+            welcomeContent.classList.add('hidden');
+        });
+
+        // Kulikovo Info Modal
+        const infoBtn = document.getElementById('infoBtn');
+        const kulikovoInfoModal = document.getElementById('kulikovoInfoModal');
+        const closeKulikovoInfoModal = document.getElementById('closeKulikovoInfoModal');
+
+        infoBtn.addEventListener('click', () => {
+            kulikovoInfoModal.classList.remove('hidden');
+        });
+
+        closeKulikovoInfoModal.addEventListener('click', () => {
+            kulikovoInfoModal.classList.add('hidden');
+        });
+
+        // Ugra Info Modal
+        const ugraInfoBtn = document.getElementById('ugraInfoBtn');
+        const ugraInfoModal = document.getElementById('ugraInfoModal');
+        const closeUgraInfoModal = document.getElementById('closeUgraInfoModal');
+
+        ugraInfoBtn.addEventListener('click', () => {
+            ugraInfoModal.classList.remove('hidden');
+        });
+
+        closeUgraInfoModal.addEventListener('click', () => {
+            ugraInfoModal.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
